@@ -2,8 +2,20 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo "Pipeline is working!"
-  displayName: "Test Pipeline"
+
+- script: |
+    echo "Installing Terraform..."
+    wget https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip
+    unzip terraform_1.9.8_linux_amd64.zip
+    sudo mv terraform /usr/local/bin/
+    terraform version
+  displayName: 'Install Terraform'
+
+- script: terraform init
+  displayName: 'Terraform Init'
+
+- script: terraform validate
+  displayName: 'Terraform Validate'
