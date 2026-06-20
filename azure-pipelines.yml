@@ -4,6 +4,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  resource_group_name: 'rg-pipeline-demo'
+  location: 'East US'
+
 steps:
 
 - script: |
@@ -20,5 +24,8 @@ steps:
 - script: terraform validate
   displayName: 'Terraform Validate'
 
-- script: terraform plan
+- script: |
+    terraform plan \
+    -var="resource_group_name=$(resource_group_name)" \
+    -var="location=$(location)"
   displayName: 'Terraform Plan'
