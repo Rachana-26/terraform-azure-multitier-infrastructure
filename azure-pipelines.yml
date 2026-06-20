@@ -25,16 +25,13 @@ steps:
   displayName: 'Terraform Validate'
 
 - task: AzureCLI@2
-  displayName: 'Azure Login'
+  displayName: 'Terraform Plan'
   inputs:
     azureSubscription: 'terraform-azure-connection'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      az account show
+      terraform plan \
+      -var="resource_group_name=$(resource_group_name)" \
+      -var="location=$(location)"
 
-- script: |
-    terraform plan \
-    -var="resource_group_name=$(resource_group_name)" \
-    -var="location=$(location)"
-  displayName: 'Terraform Plan'
