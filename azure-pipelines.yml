@@ -19,3 +19,6 @@ steps:
 
 - script: terraform validate
   displayName: 'Terraform Validate'
+
+- script: terraform plan
+  displayName: 'Terraform Plan'
